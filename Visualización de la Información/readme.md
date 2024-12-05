@@ -1,10 +1,13 @@
-
-
 ### UNaB: Universidad Nacional Guillermo Brown
+
 #### 188 - Visualización de la Información
 
 ## Prof: Virginia Guerrero
-# Alumnos : Euler, Diego - González, Lucas León - Herrera, Marcos Elías.
+
+# Alumnos: 
+- 🚀 Euler, Diego
+- 🌟 González, Lucas León
+- 🌌 Herrera, Marcos Elías
 
 -----
 
@@ -75,3 +78,4 @@ En la Parte 2, deberás responder a una segunda pregunta (utilizando el mismo co
 Para la Introducción, no es necesario que repitas toda la descripción del conjunto de datos de la Parte 1, pero sí que describas las columnas necesarias para responder a tu pregunta.
 
 Responde a tu pregunta interpretando tus gráficos e identificando las tendencias que revelan o no revelan, según sea el caso.
+
