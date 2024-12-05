@@ -1,15 +1,10 @@
 
 
 ### UNaB: Universidad Nacional Guillermo Brown
-
 #### 188 - Visualización de la Información
 
 ## Prof: Virginia Guerrero
-
-# Alumnos: 
-- 🚀 Euler, Diego
-- 🌟 González, Lucas León
-- 🌌 Herrera, Marcos Elías
+# Alumnos : Euler, Diego - González, Lucas León - Herrera, Marcos Elías.
 
 -----
 
