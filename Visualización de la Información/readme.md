@@ -1,16 +1,23 @@
 
 
 ### UNaB: Universidad Nacional Guillermo Brown
+
 #### 188 - Visualización de la Información
 
 ## Prof: Virginia Guerrero
-# Alumnos : Euler, Diego - González, Lucas León - Herrera, Marcos Elías.
+
+# Alumnos: 
+- 🚀 Euler, Diego
+- 🌟 González, Lucas León
+- 🌌 Herrera, Marcos Elías
 
 -----
 
-# Trabajo Práctico Integrador
+# 🌠 Trabajo Práctico Integrador 🌠
+
 -----
-## Instrucciones
+
+## 📋 Instrucciones
 
 Por favor, utiliza la plantilla RMarkdown provista para completar tu informe. El resultado del documento RMarkdown (en formato HTML) y el archivo RMarkdown sin procesar (como .Rmd) deben ser subidos al campus antes de las 21 hs del martes 19 de noviembre para la comisión 1 y del jueves 21 de noviembre para la comisión 2. Estos dos documentos se calificarán en conjunto, por lo que deben ser coherentes (es decir, no cambies el archivo RMarkdown sin actualizar también el documento HTML).
 
@@ -18,7 +25,7 @@ Todos los resultados presentados deben tener su código correspondiente. Cualqui
 
 Para este informe, utilizarás la base de datos de meteoritos que contiene información de impactos de meteoritos y su fuente es la NASA. Incluye información sobre más de 45,000 meteoritos, incluyendo su nombre, ubicación, masa y año de impacto.
 
-### Diccionario de Datos
+### 📊 Diccionario de Datos
 
 | Variable      | Clase     | Descripción                                                                         |
 |---------------|-----------|-------------------------------------------------------------------------------------|
@@ -33,7 +40,7 @@ Para este informe, utilizarás la base de datos de meteoritos que contiene infor
 | long          | double    | Longitud                                                                            |
 | geolocation   | character | Geolocalización                                                                     |
 
-## Estructura del Informe
+## 📝 Estructura del Informe
 
 Este informe constará de dos partes. Cada parte debe estar estructurada de la siguiente manera:
 
@@ -46,30 +53,30 @@ Les recomendamos que sean concisos. Un párrafo no debería tener más de 5-6 fr
 
 No están obligados a realizar ninguna prueba estadística en este proyecto o manipulación de datos complicada, pueden hacerlo si les resulta útil para responder a su pregunta.
 
-### Instrucciones para la Parte 1
+### 📍 Instrucciones para la Parte 1
 
 En la Parte 1, le proporcionamos una pregunta específica para responder e instrucciones específicas sobre cómo responder a la pregunta.
 
 #### Introducción
 
-En esta sección, escribí una breve introducción al conjunto de datos, la pregunta y qué partes del conjunto de datos son necesarias para responder a la pregunta. Podés repetir parte de la información sobre el conjunto de datos proporcionada anteriormente, parafraseando en tus propios términos y entendiendo con otros detalles. Es importante que te tomes tiempo para entender de qué se trata la base de datos y busques información extra si fuera necesario. Imaginá que tu informe es un documento independiente y que la persona que califica no tiene conocimiento previo del conjunto de datos.
+En esta sección, escribe una breve introducción al conjunto de datos, la pregunta y qué partes del conjunto de datos son necesarias para responder a la pregunta. Puedes repetir parte de la información sobre el conjunto de datos proporcionada anteriormente, parafraseando en tus propios términos y entendiendo con otros detalles. Es importante que te tomes tiempo para entender de qué se trata la base de datos y busques información extra si fuera necesario. Imagina que tu informe es un documento independiente y que la persona que califica no tiene conocimiento previo del conjunto de datos.
 
 #### Enfoque
 
-Describí los tipos de gráficos que vas a realizar para responder a la pregunta. Para cada gráfico, explicá claramente por qué este gráfico (por ejemplo, diagrama de caja, diagrama de barras, histograma, etc.) es el mejor para proporcionar la información sobre la que se pregunta. Los dos gráficos deben ser de diferentes tipos y al menos uno de ellos debe mapear datos al color o la forma o utilizar facetas (paneles).
+Describe los tipos de gráficos que vas a realizar para responder a la pregunta. Para cada gráfico, explica claramente por qué este gráfico (por ejemplo, diagrama de caja, diagrama de barras, histograma, etc.) es el mejor para proporcionar la información sobre la que se pregunta. Los dos gráficos deben ser de diferentes tipos y al menos uno de ellos debe mapear datos al color o la forma o utilizar facetas (paneles).
 
 #### Análisis
 
-Incluí el código que genera tus gráficos. Utilizá las funciones necesarias para agregar etiquetas de ejes y guías agradables. Podés utilizar funciones de tema para personalizar la apariencia de tu gráfico, pero no es obligatorio hacerlo. Todos los gráficos deben hacerse con ggplot2.
+Incluye el código que genera tus gráficos. Utiliza las funciones necesarias para agregar etiquetas de ejes y guías agradables. Puedes utilizar funciones de tema para personalizar la apariencia de tu gráfico, pero no es obligatorio hacerlo. Todos los gráficos deben hacerse con ggplot2.
 
 #### Discusión
 
-Interpretá los resultados del análisis. Identificá cualquier tendencia, patrón o relación revelada (o no revelada) por los gráficos. Especulá acerca de por qué los datos tienen el comportamiento que tienen.
+Interpreta los resultados del análisis. Identifica cualquier tendencia, patrón o relación revelada (o no revelada) por los gráficos. Especula acerca de por qué los datos tienen el comportamiento que tienen.
 
-### Instrucciones para la Parte 2
+### 📍 Instrucciones para la Parte 2
 
 En la Parte 2, deberás responder a una segunda pregunta (utilizando el mismo conjunto de datos) y el enfoque, la misma será asignada a cada grupo. Para su resolución, avanzarán de la misma manera que en la parte 1, pero sin repetir el análisis ni las gráficas ya utilizadas.
 
 Para la Introducción, no es necesario que repitas toda la descripción del conjunto de datos de la Parte 1, pero sí que describas las columnas necesarias para responder a tu pregunta.
 
-Respondé a tu pregunta interpretando tus gráficos e identificando las tendencias que revelan o no revelan, según sea el caso.
+Responde a tu pregunta interpretando tus gráficos e identificando las tendencias que revelan o no revelan, según sea el caso.
