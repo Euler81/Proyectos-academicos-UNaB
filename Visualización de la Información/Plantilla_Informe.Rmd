@@ -1,0 +1,251 @@
+---
+title: "Trabajo Práctico Integrador"
+subtitle: Euler, Diego - González, Lucas León - Herrera, Marcos Elías.
+
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(echo = TRUE)
+
+meteoritos <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-06-11/meteorites.csv")
+
+
+```
+
+La base de datos `meteoritos` contiene información de impactos de meteoritos y su fuente es la NASA. Incluye información sobre más de 45.000 meteoritos, incluyendo su nombre, ubicación, masa y año de impacto. 
+
+### **Parte 1**
+
+**Pregunta:** *¿Cuál es la distribución geográfica de los meteoritos y donde cayeron los más pesados? *
+
+
+**Introducción:** *La caída de meteoritos ha sido un fenómeno de interés científico y cultural a lo largo de la historia. La distribución geográfica y las características físicas de estos cuerpos celestes nos proporcionan información valiosa sobre su origen, trayectoria y las condiciones de impacto en la Tierra. Este análisis busca responder a dos preguntas fundamentales: ¿Dónde se distribuyen geográficamente los meteoritos y en qué regiones se encuentran los de mayor masa? Para ello, utilizamos una base de datos proporcionada por la NASA, que contiene más de 45.000 registros, incluyendo detalles como el nombre, la masa, el año de impacto y la ubicación geográfica (latitud y longitud) de cada meteorito. Esta base de datos es valiosa para entender la distribución de meteoritos en nuestro planeta.*
+*En respuesta a las preguntas anteriormente mencionadas, se utilizarán las variables de masa, latitud y longitud del conjunto de datos. Se explorará cómo la masa de los meteoritos varía en diferentes ubicaciones y se identificarán las áreas con meteoritos más grandes.*
+
+**Enfoque:** *Empleamos herramientas del paquete ggplot2 de R para visualizar los datos de manera clara y comprensible. Para ello, se diseñaron dos tipos de gráficos:*
+
+*Gráfico de dispersión: Representa cada meteorito en función de su ubicación geográfica, usando coordenadas de latitud y longitud. El tamaño y el color de los puntos destacan la masa total de los meteoritos, diferenciando entre aquellos que superan un umbral de masa establecido (meteoritos grandes) y los que no (meteoritos pequeños).El uso de un gráfico de dispersión es apropiado aquí porque facilita la identificación de patrones de ubicación en relación con la masa.*
+
+*Mapa de calor: Muestra la densidad de impactos de meteoritos en distintas regiones del mundo. Este gráfico destaca las zonas de mayor concentración geográfica mediante un gradiente de color. Este enfoque es útil para identificar patrones en la distribución de caídas registradas, revelando zonas con alta densidad de impactos y otras con menor frecuencia de registros.*
+
+
+**Analisis:**
+
+
+```{r}
+
+# Define el umbral de masa para clasificar los meteoritos grandes
+umbral_masa <- 1e+07
+
+# Agrupa los meteoritos por latitud y longitud y calcula la masa total
+meteoritos_agrupados <- meteoritos %>%
+  group_by(lat, long) %>%
+  summarise(total_masa = sum(mass, na.rm = TRUE), .groups = 'drop') %>%
+  # Filtra filas con NA en lat o long
+  filter(!is.na(lat) & !is.na(long))
+
+# Crea el mapa base y superpone los puntos de meteoritos
+ggplot() +
+  # Agrega el mapa base con contornos de países
+  borders("world", colour = "gray70", fill = "gray95") +
+  # Superpone los puntos de meteoritos, con tamaño y color basados en la masa
+  geom_point(data = meteoritos_agrupados, 
+             aes(x = long, y = lat, size = total_masa, color = total_masa > umbral_masa), 
+             alpha = 0.7) +
+  # Ajusta la paleta cromática para los meteoritos
+  scale_color_manual(
+    values = c("FALSE" = "#1f77b4", "TRUE" = "red"),  # Azul profundo y dorado
+    labels = c("FALSE" = "Meteoritos pequeños", "TRUE" = "Meteoritos grandes")
+  ) +
+  scale_size_continuous(range = c(1, 10), guide = guide_legend(title = "Tamaño de masa")) +
+  labs(
+    title = "Distribución geográfica de meteoritos",
+    subtitle = "El tamaño y el color representan la masa total de los meteoritos",
+    x = "Longitud",
+    y = "Latitud",
+    color = "Clasificación de masa",
+    caption = "Fuente: NASA"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 16, color = "#333333"),
+    plot.subtitle = element_text(size = 12, color = "#555555"),
+    plot.caption = element_text(hjust = 0.5, color = "#666666"),
+    axis.text = element_text(color = "#333333"),
+    axis.title = element_text(face = "bold", color = "#333333"),
+    legend.position = "right",  # Cambia la posición de la leyenda
+    legend.title = element_text(face = "bold"),
+    legend.text = element_text(size = 10)
+  )
+
+```
+
+```{r}
+# Cargar datos de meteoritos (modifica según tu nombre de dataframe y columnas)
+meteoritos_limpios <- meteoritos %>%
+  filter(!is.na(lat) & !is.na(long))  # Elimina filas con latitud o longitud faltantes
+
+# Crear el mapa de calor
+ggplot() +
+  # Mapa base de los continentes
+  borders("world", colour = "gray70", fill = "gray95") +
+  # Crear mapa de calor usando stat_density_2d
+  stat_density_2d(
+    data = meteoritos_limpios,
+    aes(x = long, y = lat, fill = after_stat(level)),
+    geom = "polygon",
+    contour = TRUE,
+    alpha = 0.8  # Transparencia para mejor integración con el mapa base
+  ) +
+  # Escala de color personalizada basada en la paleta del primer gráfico
+  scale_fill_gradient(
+    low = "#1f77b4",  # Azul profundo
+    high = "red",     # Rojo intenso
+    guide = guide_colorbar(title = "Densidad")
+  ) +
+  labs(
+    title = "Mapa de Calor de la Caída de Meteoritos",
+    subtitle = "Distribución geográfica basada en la densidad de impactos",
+    x = "Longitud",
+    y = "Latitud",
+    caption = "Fuente: NASA"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 16, color = "#333333"),
+    plot.subtitle = element_text(size = 12, color = "#555555"),
+    axis.title = element_text(face = "bold", size = 12, color = "#333333"),
+    axis.text = element_text(size = 10, color = "#333333"),
+    legend.position = "right",  # Mueve la leyenda al lado derecho
+    legend.title = element_text(face = "bold", size = 10, color = "#333333"),
+    legend.text = element_text(size = 9, color = "#333333"),
+    plot.caption = element_text(hjust = 0.5, color = "#666666")
+  )
+```
+
+
+**Discusión:** *El mapa de calor revela que los meteoritos tienden a concentrarse en áreas específicas, destacándose regiones de África, Europa, Asia y la Antártida. Esta distribución no solo refleja los patrones de impacto, sino también la influencia de la actividad humana en la exploración, registro y recuperación de meteoritos, que es más frecuente en zonas accesibles y de mayor interés científico.*
+*Por otro lado, las regiones menos pobladas o de difícil acceso, como los océanos y áreas remotas, presentan una menor densidad de registros. Esto no implica necesariamente que caigan menos meteoritos en esas zonas, sino que es menos probable que sean detectados y documentados, lo que genera un sesgo en los datos disponibles.*
+*Finalmente, la dispersión geográfica de los meteoritos de gran tamaño indica que no existe una correlación clara entre la masa de los meteoritos y las regiones donde impactan. Su distribución aleatoria sugiere que los factores naturales, como la trayectoria y la velocidad, tienen mayor influencia en la ubicación de estos impactos que cualquier característica geográfica específica.*
+ 
+### **Parte 2**
+
+**Pregunta:** *¿La clase tienen alguna distribucion temporal?*
+
+**Introducción:** *La caída de meteoritos no solo despierta interés por su impacto físico, sino también por las tendencias que se pueden observar a lo largo del tiempo. Analizar su distribución temporal nos proporciona información valiosa sobre cambios en la frecuencia de impactos, avances tecnológicos en su detección y factores históricos que influyen en su registro.*
+*En respuesta a esta pregunta, se analizará la cantidad de meteoritos registrados en intervalos de dos años para identificar tendencias a corto plazo, y se examinarán las variaciones en las principales clases de meteoritos por década para obtener una perspectiva histórica más amplia.*
+
+**Enfoque:** *Para explorar la distribución temporal, utilizamos dos enfoques principales:*
+
+*Tendencia bianual: Se agruparon los meteoritos por intervalos de dos años desde 1960 hasta 2012. Se visualizó la cantidad de meteoritos registrados en cada intervalo mediante un gráfico de líneas, destacando posibles tendencias de aumento o disminución en el tiempo.*
+
+*Distribución de clases por década: Se analizaron las clases de meteoritos más observadas en cada década desde 1900. Se seleccionaron las diez clases con mayor número de registros y se representaron mediante un gráfico de barras apiladas, permitiendo observar cómo varía la composición de las clases a lo largo de las décadas.*
+
+**Analisis:**
+
+```{r }
+# Filtrar los datos y calcular el intervalo de dos años
+meteoritos_filtrados <- meteoritos %>%
+  filter(!is.na(year) & year >= 1960 & year <= 2012) %>%
+  mutate(intervalo = floor(year / 2) * 2)
+
+# Contar la cantidad de meteoritos por intervalo de dos años
+meteoritos_resumen <- meteoritos_filtrados %>%
+  group_by(intervalo) %>%
+  summarise(cantidad = n(), .groups = 'drop')
+
+# Crear el gráfico de líneas
+ggplot(meteoritos_resumen, aes(x = intervalo, y = cantidad)) +
+  geom_line(color = "steelblue", linewidth = 1) + 
+  geom_point(color = "black", size = 2) +
+  scale_x_continuous(
+    name = "Año (Intervalo de 2 años)", 
+    breaks = seq(1960, 2012, by = 2),
+    limits = c(1960, 2012)
+  ) +
+  scale_y_continuous(
+    name = "Cantidad de Meteoritos",
+    limits = c(0, max(meteoritos_resumen$cantidad, na.rm = TRUE))
+  ) +
+  labs(title = "Tendencia de Meteoritos Registrados cada 2 años") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 16, hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+    axis.text.y = element_text(size = 10),
+    axis.title.x = element_text(face = "bold"),
+    axis.title.y = element_text(face = "bold")
+  )
+
+
+```
+
+```{r }
+
+# Filtrar los datos y calcular la década
+meteoritos_filtrados <- meteoritos %>%
+  filter(!is.na(year) & year >= 1900 & year < 2100) %>%
+  mutate(decada = floor(year / 10) * 10)
+
+# Contar el número de meteoritos por década y clase
+meteoritos_class <- meteoritos_filtrados %>%
+  group_by(decada, class) %>%
+  summarise(count = n(), .groups = "drop")
+
+# Seleccionar solo las clases con más observaciones (top 10)
+top_classes <- meteoritos_class %>%
+  group_by(class) %>%
+  summarise(total_count = sum(count), .groups = "drop") %>%
+  top_n(10, total_count) %>%
+  pull(class)
+
+# Filtrar los datos para incluir solo las clases principales
+meteoritos_top_classes <- meteoritos_class %>%
+  filter(class %in% top_classes)
+
+
+# Crear una paleta de colores personalizada con tonalidades más suaves de azul y rojo
+colores_personalizados <- c(
+  "#1f77b4",  # Azul profundo
+  "red",  # Rojo intenso
+  "#9ac9e6",   # Azul claro
+  "#e68985",   # Rojo claro
+  "#7ea1cd",   # Azul tenue
+  "#e56a59",   # Rojo anaranjado
+  "#aad4f5",   # Azul muy claro
+  "#ffb3ab",   # Rosa pálido
+  "#a8c9e7",   # Azul pálido
+  "#f1c1b7"    # Rosa suave
+)
+
+# Crear el gráfico de barras agrupado por década
+ggplot(meteoritos_top_classes, aes(x = factor(decada), y = count, fill = class)) +
+  geom_bar(stat = "identity", position = "stack") +
+  labs(
+    title = "Distribución de las Clases Principales de Meteoritos",
+    subtitle = "Top 10 clases de meteoritos con más observaciones desde 1800",
+    x = "Década",
+    y = "Número de Observaciones",
+    fill = "Clase de Meteorito"
+  ) +
+  scale_fill_manual(values = colores_personalizados) + # Usar la paleta de colores personalizada
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 16, hjust = 0.5, color = "#333333"),
+    plot.subtitle = element_text(size = 12, hjust = 0.5, color = "#555555"),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 9, color = "#333333"),
+    axis.text.y = element_text(size = 10, color = "#333333"),
+    axis.title.x = element_text(face = "bold", color = "#333333"),
+    axis.title.y = element_text(face = "bold", color = "#333333"),
+    legend.position = "right", # Mover la leyenda al lado derecho
+    legend.title = element_text(face = "bold", size = 10, color = "#333333"),
+    legend.text = element_text(size = 9, color = "#333333")
+  )
+
+```
+
+**Discusión:** *Los resultados destacan una clara tendencia temporal en el registro de meteoritos. El incremento en los registros a partir de los años 60 se alinea con avances tecnológicos y científicos, indicando que más meteoritos están siendo documentados, no necesariamente que caigan más en esa época.*
+*Por otro lado, la estabilidad relativa en las clases dominantes a lo largo de las décadas sugiere que la composición general de los meteoritos que llegan a la Tierra no ha variado significativamente en términos de sus características principales. Sin embargo, las variaciones observadas en proporciones podrían reflejar prioridades de investigación o descubrimientos excepcionales en ciertos períodos.*
+*Estos hallazgos subrayan la importancia de considerar tanto los factores naturales como los históricos y tecnológicos en la interpretación de los datos temporales de los meteoritos.*
