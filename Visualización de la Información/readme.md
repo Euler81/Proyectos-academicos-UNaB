@@ -1,5 +1,5 @@
 # Trabajo Práctico Integrador
-
+# Euler, Diego - González, Lucas León - Herrera, Marcos Elías.
 ## Instrucciones
 
 Por favor, utiliza la plantilla RMarkdown provista para completar tu informe. El resultado del documento RMarkdown (en formato HTML) y el archivo RMarkdown sin procesar (como .Rmd) deben ser subidos al campus antes de las 21 hs del martes 19 de noviembre para la comisión 1 y del jueves 21 de noviembre para la comisión 2. Estos dos documentos se calificarán en conjunto, por lo que deben ser coherentes (es decir, no cambies el archivo RMarkdown sin actualizar también el documento HTML).
