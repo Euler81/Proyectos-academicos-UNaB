@@ -4,21 +4,7 @@ Bienvenido al repositorio de **Proyectos Académicos UNaB**, una colección de t
 
 ## 📂 Contenido
 
-Este repositorio incluye una variedad de proyectos desarrollados en diferentes cursos y materias a lo largo de los años. Los proyectos están organizados por área de estudio y materia. A continuación, se presenta una lista de los proyectos actualmente disponibles:
-
-- **📊 Ciencias de Datos**
-  - 🔍 Análisis Exploratorio de Datos
-  - 📈 Modelos de Predicción
-  - 📉 Visualización de Datos
-- **💻 Programación**
-  - 🧮 Algoritmos y Estructuras de Datos
-  - 🏷️ Programación Orientada a Objetos
-  - 🌐 Desarrollo de Aplicaciones Web
-- **🗃️ Bases de Datos**
-  - 📐 Diseño y Modelado de Bases de Datos
-  - 📝 Consultas SQL Avanzadas
-  - ⚙️ Sistemas de Gestión de Bases de Datos
-
+Este repositorio incluye una variedad de proyectos desarrollados en diferentes cursos y materias a lo largo de los años. Los proyectos están organizados por área de estudio y materia. 
 
 Cada proyecto incluye los siguientes archivos y carpetas:
 
