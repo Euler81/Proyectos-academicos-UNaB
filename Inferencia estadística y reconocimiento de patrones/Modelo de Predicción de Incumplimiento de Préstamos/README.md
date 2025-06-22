@@ -36,9 +36,7 @@ Se utilizó el conjunto de datos `Clasificación banco.csv`, que contiene inform
 - 🎯 **Variable Objetivo:** `paid` (0 = No Pagado, 1 = Pagado)  
 - 🧾 **Características:** Incluyen variables numéricas (`credit.policy`, `int.rate`, `installment`, `log.annual.inc`, etc.) y categóricas (`purpose`)
 
-🔍 El análisis exploratorio reveló un **desbalance significativo**:  
-➡️ ~84% de los préstamos fueron pagados  
-➡️ ~16% resultaron en incumplimiento  
+
 
 ---
 
@@ -61,4 +59,3 @@ Se utilizó el conjunto de datos `Clasificación banco.csv`, que contiene inform
    - Matrices de Confusión  
    - Métricas: **Precision**, **Recall**, **F1-Score**  
 
-1
