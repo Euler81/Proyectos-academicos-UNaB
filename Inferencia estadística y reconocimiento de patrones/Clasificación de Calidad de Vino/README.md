@@ -44,9 +44,6 @@ Las características incluyen:
 * 🧴 `sulphates`  
 * 🍾 `alcohol`  
 
-La variable objetivo `quality` (con valores de 3 a 8) fue transformada en una variable categórica binaria para el problema de clasificación:  
-* ❌ **Mala Calidad:** si `quality` <= 5  
-* ✅ **Buena Calidad:** si `quality` > 5  
 
 ---
 
